@@ -2,17 +2,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { schema } from "./accountSchema";
-import { FaUser, FaRegStickyNote, FaInfoCircle, FaAddressBook, FaBuilding, FaWallet } from "react-icons/fa";
-import { TextInputField, SelectField } from "./FormFields";
+import { FaUser, FaBuilding } from "react-icons/fa";
+import { CheckBoxField,TextInputField, SelectField } from "./FormFields";
 import PropTypes from "prop-types";
-import InvoiceItemsTable from './InvoiceItemsTable';
-import TermsSection from "./TermsSection";
+
+import TermsSection from "./TermsSection"; // Importing TermsSection
 
 const InvoiceForm = ({ closeModal }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isSavingNew, setIsSavingNew] = useState(false);
 
   const {
+    register,
     control,
     handleSubmit,
     reset,
@@ -50,7 +51,7 @@ const InvoiceForm = ({ closeModal }) => {
         <div className="p-4">
           <div className="absolute shadow-md p-4 top-0 left-0 right-0 flex justify-between items-center">
             <div className="flex items-center space-x-4">
-              <h2 className="text-xl font-semibold">Create Invoice</h2>
+              <h2 className="text-xl font-semibold">Create Product</h2>
               <a
                 href="/some-link"
                 className="text-blue-500 underline hover:text-blue-700"
@@ -87,189 +88,210 @@ const InvoiceForm = ({ closeModal }) => {
           </div>
 
           <div className="mt-4">
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-lg font-semibold mb-3">Invoice Information</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mb-8">
-              <div className="grid gap-4 pl-20">
-                <SelectField
-                  name="invoiceOwner"
-                  control={control}
-                  label="Invoice Owner"
-                  placeholder="Select invoice Owner"
-                  options={["Sabu John Bosco", "Owner2", "Owner3"]}
-                  errors={errors}
-                  icon={FaUser}
-                />
-                <TextInputField
-                  name="Subject"
-                  control={control}
-                  label="Subject"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="Invoicedate"
-                  control={control}
-                  label="Invoice Date"
-                  errors={errors}
-                  icon={FaRegStickyNote}
-                />
-                <TextInputField
-                  name="duedate"
-                  control={control}
-                  label="Due Date"
-                  placeholder="DD/MM/YYYY"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="salescommission"
-                  control={control}
-                  label="Sales Commission"
-                  errors={errors}
-                  icon={FaInfoCircle}
-                />
-                <TextInputField
-                  name="Accountname"
-                  control={control}
-                  label="Account Name"
-                  errors={errors}
-                  icon={FaBuilding}
-                />
-                <TextInputField
-                  name="Contactname"
-                  control={control}
-                  label="Contact Name"
-                  errors={errors}
-                  icon={FaAddressBook}
-                />
-                <TextInputField
-                  name="Dealname"
-                  control={control}
-                  label="Deal Name"
-                  errors={errors}
-                  icon={FaWallet}
-                />
-              </div>
-              <div className="grid gap-4 pl-20 mb-64">
-                <TextInputField
-                  name="Salesorder"
-                  control={control}
-                  label="Sales Order"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="Purchaseorder"
-                  control={control}
-                  label="Purchase Order"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="exciseduty"
-                  control={control}
-                  label="Excise Duty"
-                  errors={errors}
-                  icon={FaInfoCircle}
-                />
-                <SelectField
-                  name="status"
-                  control={control}
-                  label="Status"
-                  placeholder="Select Status"
-                  options={["Created", "Approved", "Delivered", "Cancelled"]}
-                  errors={errors}
-                />
-                {/* Additional divs for adjust spacing */}
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
+  <h3 className="text-lg font-semibold mb-3">Product Information</h3>
+  <div 
+    className="grid grid-cols-2 gap-4" 
+    style={{ gridAutoRows: '1fr', alignItems: 'start' }} // Ensure proper alignment
+  >
+    <div className="grid gap-4 pl-20">
+      <SelectField
+        name="ProductOwner"
+        control={control}
+        label="Product Owner"
+        placeholder="Select Product Owner"
+        options={["Sabu John Bosco", "Owner2", "Owner3"]}
+        errors={errors}
+        icon={FaUser}
+      />
+      <TextInputField
+        name="Product code"
+        control={control}
+        label="Product code"
+        errors={errors}
+      />
+     
 
-          <div className="mt-4">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-semibold mt-8">Address Information</h3>
-              <button
-                type="button"
-                className="bg-gray-100 text-black shadow-md py-2 px-4 rounded mt-10"
-              >
-                Copy Address
-              </button>
-            </div>
-            <div className="grid grid-cols-2 gap-4 mt-6">
-              <div className="grid gap-4 pl-20">
-                <TextInputField
-                  name="billingStreet"
-                  control={control}
-                  label="Billing street"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="billingCity"
-                  control={control}
-                  label="Billing City"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="billingState"
-                  control={control}
-                  label="Billing State"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="billingCode"
-                  control={control}
-                  label="Billing code"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="billingCountry"
-                  control={control}
-                  label="Billing country"
-                  errors={errors}
-                />
-              </div>
-              <div className="grid gap-4 pl-20">
-                <TextInputField
-                  name="shippingStreet"
-                  control={control}
-                  label="Shipping street"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="shippingCity"
-                  control={control}
-                  label="Shipping City"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="shippingState"
-                  control={control}
-                  label="Shipping state"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="shippingCode"
-                  control={control}
-                  label="Shipping Code"
-                  errors={errors}
-                />
-                <TextInputField
-                  name="shippingCountry"
-                  control={control}
-                  label="Shipping Country"
-                  errors={errors}
-                />
-              </div>
-            </div>
+      <SelectField
+        name="ProductCategory"
+        control={control}
+        label="Product Category"
+        placeholder="Select Category"
+        options={["None", "Sabu John Bosco", "Owner2", "Owner3"]}
+        errors={errors}
+        icon={FaUser}
+      />
+      <TextInputField
+        name="duedate"
+        control={control}
+        label="Sales End Date"
+        placeholder="DD/MM/YYYY"
+        errors={errors}
+      />
+      <TextInputField
+        name="duedate"
+        control={control}
+        label="Support End Date"
+        placeholder="DD/MM/YYYY"
+        errors={errors}
+      />
+      <CheckBoxField
+  name="Product Active"
+  register={register}
+  label="Product Active"
+  errors={errors}
+  containerClass="flex"
+  labelClass="mr-6" // Optional: Adds spacing between label and checkbox
+/>
+    </div>
+
+    <div className="grid gap-4 pl-20">
+      <TextInputField
+        name="Salesorder"
+        control={control}
+        label="Product Name"
+        errors={errors}
+      />
+      <TextInputField
+        name="Accountname"
+        control={control}
+        label="Vendor Name"
+        errors={errors}
+        icon={FaBuilding}
+      />
+      <SelectField
+        name="Manufacturer"
+        control={control}
+        label="Manufacturer"
+        placeholder="Select Manufacturer"
+        options={["None", "Sabu John Bosco", "Owner2", "Owner3"]}
+        errors={errors}
+        icon={FaUser}
+      />
+      <TextInputField
+        name="duedate"
+        control={control}
+        label="Sales Start Date"
+        placeholder="DD/MM/YYYY"
+        errors={errors}
+      />
+      <TextInputField
+        name="duedate"
+        control={control}
+        label="Support Start Date"
+        placeholder="DD/MM/YYYY"
+        errors={errors}
+      />
+    </div>
+  </div>
+</div>
+
+
+          {/* Price Information Section */}
+<div className="mt-12"> {/* Adjusted margin to fix spacing */}
+  <h3 className="text-lg font-semibold">Price Information</h3>
+  <div 
+    className="grid grid-cols-2 gap-4 mt-6"
+    style={{ gridAutoRows: '1fr', alignItems: 'start' }} // Ensure proper alignment
+  >
+    <div className="grid gap-4 pl-20">
+      <TextInputField
+        name="billingStreet"
+        control={control}
+        label="Unit Price"
+        errors={errors}
+      />
+      <SelectField
+        name="Tax"
+        control={control}
+        label="Tax"
+        options={["None", "Sabu John Bosco", "Owner2", "Owner3"]}
+        errors={errors}
+      />
+      <CheckBoxField
+         name="Taxable"
+         register={register}
+         label="Taxable "
+         errors={errors}
+         containerClass="flex"
+         labelClass="mr-16"
+      />
+    </div>
+
+    <div className="grid gap-4 pl-20">
+      <TextInputField
+        name="Commission Rate"
+        control={control}
+        label="Commission Rate"
+        errors={errors}
+      />
+    </div>
+  </div>
+</div>
+
+          {/* Stock Information Section */}
+<div className="mt-12">
+  <h3 className="text-lg font-semibold">Stock Information</h3>
+  <div 
+    className="grid grid-cols-2 gap-4 mt-6" 
+    style={{ gridAutoRows: '1fr', alignItems: 'start' }} // Ensures uniform row height
+  >
+    <div className="grid gap-4 pl-20">
+      <SelectField
+        name="UsageUnit"
+        control={control}
+        label="Usage Unit"
+        options={["Box", "Sabu John Bosco", "Owner2", "Owner3"]}
+        errors={errors}
+        icon={FaUser}
+      />
+      <TextInputField
+        name="QuantityinStock"
+        control={control}
+        label="Quantity in Stock"
+        errors={errors}
+      />
+      <SelectField
+        name="Handler"
+        control={control}
+        label="Handler"
+        options={["None", "Sabu John Bosco", "Owner2", "Owner3"]}
+        errors={errors}
+        icon={FaUser}
+      />
+    </div>
+
+    <div className="grid gap-4 pl-20">
+      <TextInputField
+        name="QtyOrdered"
+        control={control}
+        label="Qty Ordered"
+        errors={errors}
+      />
+      <TextInputField
+        name="Reorder Level"
+        control={control}
+        label="Reorder Level"
+        errors={errors}
+      />
+      <TextInputField
+        name="QuantityinDemand"
+        control={control}
+        label="Quantity in Demand"
+        errors={errors}
+      />
+    </div>
+  </div>
+</div>
+
+
+          {/* Terms Section */}
+          <div className="mt-12">
+            <TermsSection /> {/* Added TermsSection component */}
           </div>
         </div>
-        <InvoiceItemsTable />
-        <TermsSection />
       </form>
     </div>
-  ); 
+  );
 };
 
 InvoiceForm.propTypes = {

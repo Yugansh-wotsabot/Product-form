@@ -85,6 +85,22 @@ export const SelectField = ({
   </div>
 );
 
+export const CheckBoxField = ({ name, register, label, errors, containerClass, labelClass }) => (
+  <div className={`flex ${containerClass}`}>
+    <label htmlFor={name} className={`text-sm text-gray-500 font-medium ${labelClass}`}>
+      {label}
+    </label>
+    <input
+      type="checkbox"
+      id={name}
+      {...register(name)}
+      className="w-5 h-5  rounded" // Adjust size and styling as needed
+    />
+    {errors[name] && <p className="text-red-500 text-xs">{errors[name].message}</p>}
+  </div>
+);
+
+
 
 TextInputField.propTypes = {
   name: PropTypes.string.isRequired,
@@ -105,4 +121,11 @@ SelectField.propTypes = {
   errors: PropTypes.object,
   icon:PropTypes.elementType,
   inputClassName: PropTypes.string,
+};
+
+CheckBoxField.propTypes = {
+  name: PropTypes.string.isRequired,
+  register: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  errors: PropTypes.object,
 };
