@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 import TermsSection from "./TermsSection"; // Importing TermsSection
 
-const InvoiceForm = ({ closeModal }) => {
+const ProductForm = ({ closeModal }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [isSavingNew, setIsSavingNew] = useState(false);
 
@@ -294,8 +294,8 @@ const InvoiceForm = ({ closeModal }) => {
   );
 };
 
-InvoiceForm.propTypes = {
+ProductForm.propTypes = {
   closeModal: PropTypes.func.isRequired,
 };
 
-export default InvoiceForm;
+export default ProductForm;
