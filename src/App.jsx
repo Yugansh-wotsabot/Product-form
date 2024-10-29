@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import InvoiceForm from './components/InvoiceForm';
+import ProductForm from './components/ProductForm';
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,11 +14,11 @@ const App = () => {
 
   return (
     <div className="app">
-    <InvoiceForm/>
+    <ProductForm/>
     {isModalOpen && (
       <div className="modal">
         <button onClick={closeModal}></button>
-        <InvoiceForm closeModal={closeModal} />
+        <ProductForm closeModal={closeModal} />
       </div>
     )}
   </div>
